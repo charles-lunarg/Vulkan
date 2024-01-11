@@ -393,6 +393,11 @@ public:
 			shaderGroups.push_back(shaderGroup);
 		}
 
+        
+        if (rayTracingPipelineProperties.maxRayRecursionDepth < 4) {
+            vks::tools::exitFatal("This sample requires at least a ray tracing recursion depth of 2 but VkPhysicalDeviceRayTracingPipelinePropertiesKHR::maxRayRecursionDepth is lower than that", -1);
+        }
+
 		VkRayTracingPipelineCreateInfoKHR rayTracingPipelineCI = vks::initializers::rayTracingPipelineCreateInfoKHR();
 		rayTracingPipelineCI.stageCount = static_cast<uint32_t>(shaderStages.size());
 		rayTracingPipelineCI.pStages = shaderStages.data();
